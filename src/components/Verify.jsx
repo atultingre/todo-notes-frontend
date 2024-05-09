@@ -6,17 +6,14 @@ import { useAuth } from "../context/AuthContext";
 
 function Verify() {
   const [loading, setLoading] = useState(false);
-  const { setResetToken } = useAuth();
+  const { setResetToken, api } = useAuth();
   const navigate = useNavigate();
   const formRef = useRef(null);
 
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/user/verify",
-        values
-      );
+      const response = await axios.post(`${api}/user/verify`, values);
       console.log(response.data);
       if (response.data.success === true) {
         setResetToken(response.data.token);

@@ -7,15 +7,12 @@ import { useAuth } from "../context/AuthContext";
 function Register() {
   const [form] = Form.useForm();
   const formRef = useRef(null);
-  const { loading, setLoading } = useAuth();
+  const { loading, setLoading, api } = useAuth();
 
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/user/register",
-        values
-      );
+      const response = await axios.post(`${api}/user/register`, values);
       console.log(response.data);
       // Handle successful registration, redirect, etc.
       message.success("Registration successful");

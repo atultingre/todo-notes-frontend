@@ -6,16 +6,16 @@ import { useRef } from "react";
 
 function ForgotPassword() {
   const formRef = useRef(null);
-  const { resetToken, loading, setLoading } = useAuth();
+  const { resetToken, loading, setLoading, api } = useAuth();
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/user/forgot-password",
-        { token: resetToken, ...values }
-      );
+      const response = await axios.post(`${api}/user/forgot-password`, {
+        token: resetToken,
+        ...values,
+      });
       if (response.data.success) {
         message.success(response.data.message);
         navigate("/");

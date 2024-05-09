@@ -1,25 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import { Form, Input, Button, message, Typography, Checkbox } from "antd";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const formRef = useRef(null);
-  const { loading, setLoading } = useAuth();
+  const { loading, setLoading, api } = useAuth();
   const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
 
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/user/login",
-        values
-      );
+      const response = await axios.post(`${api}/user/login`, values);
       console.log(response.data);
 
       if (response.data.success === true) {
         localStorage.setItem("token", response.data.token);
+        navigate("/");
         if (rememberMe) {
           localStorage.setItem("rememberMe", "true");
           localStorage.setItem("email", values.email);
