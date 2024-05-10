@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 
 function Login() {
   const formRef = useRef(null);
-  const { loading, setLoading, api, setToken } = useAuth();
+  const { loading, setLoading, api, setToken, setUserId } = useAuth();
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
@@ -19,8 +19,11 @@ function Login() {
       if (response.data.success === true) {
         navigate("/");
         const loginToken = response.data.token;
+        const loginUserId = response.data.userId;
         localStorage.setItem("token", loginToken);
+        localStorage.setItem("userId", loginUserId);
         setToken(loginToken);
+        setUserId(loginUserId);
         if (rememberMe) {
           localStorage.setItem("rememberMe", "true");
           localStorage.setItem("email", values.email);
