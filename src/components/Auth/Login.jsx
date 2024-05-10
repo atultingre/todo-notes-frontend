@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { Form, Input, Button, message, Typography, Checkbox } from "antd";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 function Login() {
   const formRef = useRef(null);
-  const { loading, setLoading, api } = useAuth();
+  const { loading, setLoading, api, setToken } = useAuth();
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
@@ -17,8 +17,10 @@ function Login() {
       console.log(response.data);
 
       if (response.data.success === true) {
-        localStorage.setItem("token", response.data.token);
         navigate("/");
+        const loginToken = response.data.token;
+        localStorage.setItem("token", loginToken);
+        setToken(loginToken);
         if (rememberMe) {
           localStorage.setItem("rememberMe", "true");
           localStorage.setItem("email", values.email);

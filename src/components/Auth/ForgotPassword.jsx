@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Form, Input, Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useRef } from "react";
 
 function ForgotPassword() {

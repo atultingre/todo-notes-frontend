@@ -3,13 +3,14 @@ import {
   Route,
   Routes,
   Navigate,
-  Outlet,
 } from "react-router-dom";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Verify from "./components/Verify";
-import ForgotPassword from "./components/ForgotPassword";
+import Login from "./components/Auth/Login";
+import Register from "./components/Auth/Register";
+import Verify from "./components/Auth/Verify";
+import ForgotPassword from "./components/Auth/ForgotPassword";
 import { useAuth } from "./context/AuthContext";
+import DashboardLayout from "./components/Dashboard/DashboardLayout";
+import Tasks from "./components/Tasks/Tasks";
 
 function App() {
   const { token, resetToken } = useAuth();
@@ -17,23 +18,24 @@ function App() {
     <Router>
       <Routes>
         <Route
-          exact
           path="/login"
-          element={token ? <Navigate to="/" /> : <Login />}
+          element={!token ? <Login /> : <Navigate to="/" />}
         />
         <Route
           path="/register"
-          element={token ? <Navigate to="/" /> : <Register />}
+          element={!token ? <Register /> : <Navigate to="/" />}
         />
         <Route path="/verify" element={<Verify />} />
         <Route
           path="/forgot-password"
           element={resetToken ? <ForgotPassword /> : <Navigate to="/verify" />}
         />
-        <Route exact
+        <Route
           path="/"
-          element={!token ? <Navigate to="/login" /> : <Outlet />}
-        />
+          element={token ? <DashboardLayout /> : <Navigate to="/login" />}
+        >
+          <Route path="/" element={<Tasks />} />
+        </Route>
       </Routes>
     </Router>
   );

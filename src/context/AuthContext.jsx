@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
-  }, [token]);
+  }, []);
 
   return (
     <AuthContext.Provider

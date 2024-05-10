@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Form, Input, Button, message, Typography } from "antd";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 function Register() {
   const [form] = Form.useForm();

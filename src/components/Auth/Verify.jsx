@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Form, Input, Button, message } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 function Verify() {
   const [loading, setLoading] = useState(false);
